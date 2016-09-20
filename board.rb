@@ -1,8 +1,5 @@
-Dir["/Users/appacademy/Desktop/Chess/pieces/*.rb"].each {|file| require file}
 
 class Board
-
-
 
   attr_reader :grid
 
@@ -22,7 +19,7 @@ class Board
   end
 
   def move(startpos, endpos)
-    raise ArgumentError if self[startpos].is_a?(NullPiece)
+    # raise ArgumentError if self[startpos].is_a?(NullPiece)
     self[endpos], self[startpos] = self[startpos], self[endpos]
   end
 
@@ -58,20 +55,23 @@ class Board
     new_board.map!.with_index do |row, row_index|
       row.map.with_index do |piece, col_index|
         color = check_color(row_index)
-        piece.new(color, self, [row_index, col_index])
+        if piece != NullPiece
+          piece.new(color, self, [row_index,col_index])
+        else
+          piece.instance
+        end
       end
     end
     new_board
   end
 
   def check_color(row_index)
-    if row_index >= 2 && row_index < 6
-      return nil
-    elsif row_index >= 6
+    if row_index >= 6
       return :black
     end
     return :white
   end
+
 
 
 

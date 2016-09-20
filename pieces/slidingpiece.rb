@@ -23,11 +23,12 @@ module SlidingPiece
       x += dx
       y += dy
       new_pos = [x,y]
-      while @board.in_bounds(new_pos) && @board[new_pos].empty?
-        result << new_pos
-        x += dx
-        y += dy
-        new_pos = [x,y]
+      while @board.in_bounds(new_pos)
+          result << new_pos
+          x += dx
+          y += dy
+          break unless @board[new_pos].empty?
+          new_pos = [x,y]
       end
     end
     return result

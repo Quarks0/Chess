@@ -1,9 +1,13 @@
-require_relative 'piece'
 require 'singleton'
 
-class NullPiece < Piece
+class NullPiece
   include Singleton
-  def initialize(color,board, pos)
-    super
+
+  def empty?
+    true
+  end
+
+  def value
+    "_"
   end
 end

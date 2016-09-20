@@ -1,5 +1,5 @@
 require 'colorize'
-require_relative 'manifest'
+require_relative 'manifest.rb'
 
 
 class Display
@@ -12,6 +12,7 @@ class Display
 
     def render
       system("clear")
+
       @board.grid.each_with_index do |row,y|
         temp_row = ""
         row.each_with_index do |col,x|
@@ -42,5 +43,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   d = Display.new(Board.new)
-  d.make_move
+  d.board.move([0,0],[0,2])
+  moves = d.board[[0,2]].moves
+  p d.board[[0,2]].valid_moves?(moves)
 end

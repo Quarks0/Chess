@@ -1,4 +1,4 @@
-require_relative 'piece'
+require 'singleton'
 
 class Piece
   attr_reader :color, :board, :pos
@@ -13,8 +13,18 @@ class Piece
     "_"
   end
 
-  def empty?(pos)
-    @board[pos].is_a?(NullPiece)
+  def empty?
+    false
+  end
+
+  def valid_moves?(moves)
+    results = []
+    moves.each do |move|
+      unless @board[move].color == @color
+        results << move
+      end
+    end
+    results
   end
 
 end
