@@ -1,7 +1,6 @@
 require 'colorize'
-require_relative 'cursor'
-require_relative 'board'
-require_relative 'piece'
+require_relative 'manifest'
+
 
 class Display
     attr_reader :board
@@ -17,6 +16,10 @@ class Display
         temp_row = ""
         row.each_with_index do |col,x|
           pos = [x,y]
+
+          if [x,y] == @cursor.selected_pos
+            temp_row += " #{@board[[x, y]].value.blue}"
+          end
 
           if [x,y] == @cursor.cursor_pos
             temp_row +=  " #{@board[[x, y]].value.red}"

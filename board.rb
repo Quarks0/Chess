@@ -1,15 +1,14 @@
-require_relative "piece"
+Dir["/Users/appacademy/Desktop/Chess/pieces/*.rb"].each {|file| require file}
 
 class Board
 
 
+
   attr_reader :grid
 
+
   def initialize
-    BACK_ROW = [Rook.new(:b,self,[0,0]), Knight.new(:b,self,[1,0]), Bishop.new, King.new,Queen.new, Bishop.new,Knight.new,Rook.new]
-    FRONT_ROW = Array.new(8, Pawn.new)
-    EMPTY_ROWS = Array.new(4) {Array.new(8, Piece.new)}
-    @grid = create_board
+    @grid = iterate_through_board
   end
 
   def [](pos)
@@ -41,13 +40,37 @@ class Board
   private
 
   def create_board
+    back_row = [Rook, Knight, Bishop, King,Queen, Bishop,Knight,Rook]
+    front_row = Array.new(8, Pawn)
+    empty_row = Array.new(4) {Array.new(8, NullPiece)}
+
     result = []
-    result << BACK_ROW
-    result << FRONT_ROW
-    result += EMPTY_ROWS
-    result << FRONT_ROW
-    result << BACK_ROW.reverse
+    result << back_row
+    result << front_row
+    result += empty_row
+    result << front_row
+    result << back_row.reverse
     result
+  end
+
+  def iterate_through_board
+    new_board = create_board
+    new_board.map!.with_index do |row, row_index|
+      row.map.with_index do |piece, col_index|
+        color = check_color(row_index)
+        piece.new(color, self, [row_index, col_index])
+      end
+    end
+    new_board
+  end
+
+  def check_color(row_index)
+    if row_index >= 2 && row_index < 6
+      return nil
+    elsif row_index >= 6
+      return :black
+    end
+    return :white
   end
 
 
