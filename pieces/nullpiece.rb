@@ -7,6 +7,10 @@ class NullPiece
     true
   end
 
+  def color
+    return nil
+  end
+
   def value
     "_"
   end

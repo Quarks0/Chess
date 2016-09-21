@@ -1,7 +1,8 @@
 require_relative 'piece'
+require_relative 'steppingpiece'
 
 class Knight < Piece
-  #include SteppingPiece
+  include SteppingPiece
 
   def initialize(color,board, pos)
     super
@@ -9,5 +10,9 @@ class Knight < Piece
 
   def value
     color == :white ? "♞" : "♘"
+  end
+
+  def move_diffs()
+    return SteppingPiece::KNIGHT
   end
 end

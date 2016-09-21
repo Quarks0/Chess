@@ -1,5 +1,6 @@
 require 'colorize'
 require_relative 'manifest.rb'
+require 'byebug'
 
 
 class Display
@@ -43,7 +44,12 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   d = Display.new(Board.new)
-  d.board.move([0,0],[0,2])
-  moves = d.board[[0,2]].moves
-  p d.board[[0,2]].valid_moves?(moves)
+  #debugger
+  d.board.move([1,3],[2,3])
+  d.board.move([0,4],[6,2])
+  d.board.move([0,2],[3,5])
+  d.render
+  p d.board.in_check?(:black)
+  p d.board.in_check?(:white)
+  p d.board.checkmate?(:black)
 end
